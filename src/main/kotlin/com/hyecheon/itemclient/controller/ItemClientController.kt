@@ -57,4 +57,13 @@ class ItemClientController {
 				.log("Created item is : ")
 	}
 
+	@PutMapping("/client/updateItem/{id}")
+	fun updateItem(@PathVariable id: String, @RequestBody item: Item) = run {
+		val itemBody = Mono.just(item)
+		webClient.put().uri("/v1/items/{id}", id)
+				.body(itemBody, Item::class.java)
+				.retrieve()
+				.bodyToMono(Item::class.java)
+				.log("Updated Item is : ")
+	}
 }
