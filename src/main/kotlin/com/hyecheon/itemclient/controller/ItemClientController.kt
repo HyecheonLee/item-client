@@ -66,4 +66,12 @@ class ItemClientController {
 				.bodyToMono(Item::class.java)
 				.log("Updated Item is : ")
 	}
+
+	@DeleteMapping("/client/deleteItem/{id}")
+	fun deleteItem(@PathVariable id: String) = run {
+		webClient.delete().uri("v1/items/{id}", id)
+				.retrieve()
+				.bodyToMono<Any>()
+				.log("Deleted Item is : ")
+	}
 }
